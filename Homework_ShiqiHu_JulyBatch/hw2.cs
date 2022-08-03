@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Homework_ShiqiHu_JulyBatch
@@ -161,45 +162,221 @@ namespace Homework_ShiqiHu_JulyBatch
             Console.WriteLine();
         }
 
-        //5
+        //5 --incomplete
         public static void longestSequence(string sequence)
         {
             string[] arr = sequence.Split(' ');
 
-
             //first iterator
             string start = "";
-            string compelete_sq = "";
-            int sqLength = 0;
-            int maxsqLength = 0;
+            int maxsqLength = 1;
             for (int i = 0; i < arr.Length; i++)
             {
-                StringBuilder sb = new StringBuilder(start); // initialize stringbuilder for first letter to the entire sequence
                 start = arr[i]; //first letter of the sequence
-                sqLength = 1;
-                maxsqLength = sqLength;
+                int sqLength = 1;
                 //second iterator
-                for (int j = i+1; j < arr[i].Length; j++)
+                for (int j = i+1; j < arr.Length; j++)
                 {
-                    //if the next letter is the same as the start of the sequence, append number to stringbuilder, and continue searching
-                    //else, change 'start' value, reset stringbuilder with 'start', stop loop
+                    //if the next letter is the same as the start of the sequence, subsequence number++, and continue searching
+                    //else, set first iterator to one before second iterator's index (ready for next iteration), stop inner loop
                     if (arr[j] == start)
                     {
-                        sb.Append(" "+start);
                         sqLength++;
                     }
                     else
                     {
-                        i = j;
+                        i = j-1;
                         break;
                     }
                 }
+                //if the subsequence has longer sequence than longest sequence so far
+                //then record subsequence by casting stringbuilder to string
+                //then clear stringbuilder
                 if (sqLength > maxsqLength)
                 {
-                    sb.Clear();
-                    sb.Append(start);
+                    maxsqLength = sqLength;
                 }
             }
+
+            //output sequence
+            Console.Write(start);
+            for (int i = 0; i < maxsqLength-1; i++)
+            {
+                Console.WriteLine(" {0}",start);
+            }
+            Console.WriteLine();
+        }
+
+        //7
+        public static void mostFrequentNum(string str)
+        {
+            string[] arr = str.Split(' ');
+            Dictionary<string, int> dict = new Dictionary<string, int>(); 
+
+            foreach (string s in arr)
+            {
+                if (dict.ContainsKey(s))
+                {
+                    dict[s]++;
+                }
+                else
+                {
+                    dict.Add(s, 1);
+                }
+            }
+
+            //after all iterations
+            List<string> maxStr = new List<string>();
+            int max = 0;
+            foreach (KeyValuePair<string,int> i in dict)
+            {
+                if (i.Value > max)
+                {
+                    max = i.Value;
+                    maxStr.Add(i.Key);
+                } else if (i.Value == max)
+                {
+                    maxStr.Add(i.Key);
+                }
+            }
+
+            if (maxStr.Count ==1)
+            {
+                Console.WriteLine("The number {0} is the most frequent (occur {1} times)", maxStr[0],max);
+            } else
+            {
+                Console.Write("The number ");
+                for (int i = 0; i < maxStr.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        Console.Write(maxStr[i]);
+                    }else if (i == maxStr.Count-1)
+                    {
+                        Console.Write(" and {0}", maxStr[i]);
+                    }
+                    else
+                    {
+                        Console.Write(", {0}", maxStr[i]);
+                    }
+                }
+                Console.WriteLine(" have the same maximal frequency (each occurs {0} times). The leftmost of them is {1}.", max, maxStr[0]);
+
+            }
+            
+        }
+        
+        //Practice Strings
+        //1
+        //mode: true for char-array method, false for print-reverse method
+        public static void reverseStr(bool mode)
+        {
+            string input = Console.ReadLine();
+            char[] temp = input.ToCharArray();
+            Array.Reverse(temp);
+            if (mode)
+            {
+                string output = new string(temp);
+                Console.WriteLine(output);
+            }
+            else
+            {
+                foreach (char c in temp)
+                {
+                    Console.Write(c);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        //2 --incomplete
+        public static void reverseSentence(string sen)
+        {
+            //string[] words = sen.Split(new char[] {'.', ',', ':', ';', '=', '(', ')', '&', '[', ']', '"', ''', '\\', '/','!','?',' '});
+            string[] words = Regex.Split(sen, "[.,:;=()&\\/!?\\s\\[\\]\"\']");
+            
+            foreach (string word in words)
+            {
+                Console.WriteLine(word);
+            }
+
+        }
+
+        //3
+        public static void palindrome(string sen)
+        {
+            string[] arr = Regex.Split(sen, "[^a-zA-Z]");
+            List<string> list = new List<string>();
+
+            bool isFirst = true;
+            for (int i = 0; i <arr.Length ; i++)
+            {
+                if (arr[i] != "" && IsPalindrome(arr[i]))
+                {
+                    list.Add(arr[i]);
+                }
+            }
+            list.Sort();
+            for (int i = 0; i < list.Count ; i++)
+            {
+                if (isFirst)
+                {
+                    Console.Write(list[i]);
+                    isFirst = false;
+                }
+                else
+                {
+                    Console.Write(", {0}", list[i]);
+                }
+            }
+            Console.WriteLine();
+        }
+        public static bool IsPalindrome(string s)
+        {
+            StringBuilder sb = new StringBuilder(100);
+            foreach (char item in s)
+            {
+                if (char.IsLetterOrDigit(item))
+                {
+                    sb.Append(item);
+                }
+            }
+            string str1 = sb.ToString();
+            char[] temp = str1.ToCharArray();
+            Array.Reverse(temp);
+            string str2 = new string(temp);
+            return str1 == str2;
+        }
+
+        //4
+        public static void urlParser(string url)
+        {
+            Uri uri;
+            string protocol,server,resource;
+            if (!url.Contains("://"))
+            {
+                protocol = "";
+                server = url.Substring(0,url.IndexOf('/')==-1 ? url.Length : url.IndexOf('/'));
+                resource = url.IndexOf('/') == -1 ? "" : url.Substring(url.IndexOf('/')+1);
+            }
+            else
+            {
+                uri = new Uri(url);
+                protocol = uri.Scheme;
+                server = uri.Host;
+                resource = uri.PathAndQuery == "/" ? "":uri.PathAndQuery.Substring(1);
+            }
+            
+            
+            //int end_index_server = url.IndexOf("://");
+            //int start_index_employee = url.Substring(end_index_server + 3).IndexOf('/')+ (end_index_server + 3) + 1; //index or -1 if not found
+            //string protocol = url.Substring(0, end_index_server-0);
+            //string server = url.Substring(end_index_server + 3, start_index_employee - end_index_server - 4);
+            //string resource = url.Substring(start_index_employee);
+            Console.WriteLine(url);
+            Console.WriteLine("[protocal] = \"{0}\"", protocol);
+            Console.WriteLine("[server] = \"{0}\"", server);
+            Console.WriteLine("[resource] = \"{0}\"", resource);
             Console.WriteLine();
         }
 
@@ -207,15 +384,32 @@ namespace Homework_ShiqiHu_JulyBatch
         {
             //copyArr();
             //toDoList();
+
             //foreach (int i in FindPrimesInRange(1, 155))
             //{
             //    Console.WriteLine("{0} ",i);
             //}
+
             //rotateSum();
-            longestSequence("2 1 1 2 3 3 2 2 2 1");
-            longestSequence("1 1 1 2 3 1 3 3");
-            longestSequence("4 4 4 4");
-            longestSequence("0 1 1 5 2 2 6 3 3");
+
+            //longestSequence("2 1 1 2 3 3 2 2 2 1");
+            //longestSequence("1 1 1 2 3 1 3 3");
+            //longestSequence("4 4 4 4");
+            //longestSequence("0 1 1 5 2 2 6 3 3");
+
+            //mostFrequentNum("4 1 1 4 2 3 4 4 1 2 4 9 3");
+            //mostFrequentNum("7 7 7 0 2 2 2 0 10 10 10");
+
+            //reverseStr(true);
+            //reverseStr(false);
+
+            //reverseSentence("C# is not C++, and PHP is not Delphi!");
+            //palindrome("Hi,exe? ABBA! Hog fully a string: ExE. Bob");
+
+            //urlParser("https://www.apple.com/iphone");
+            //urlParser("ftp://www.example.com/employee");
+            //urlParser("https://google.com");
+            //urlParser("www.apple.com");
         }
     }
 }
