@@ -162,18 +162,24 @@ namespace Homework_ShiqiHu_JulyBatch
             Console.WriteLine();
         }
 
-        //5 --incomplete
+        //5
         public static void longestSequence(string sequence)
         {
+            
             string[] arr = sequence.Split(' ');
+            
+
+            
+            string start = "";
+            string maxStart = "";
+            int maxsqLength = 1;
 
             //first iterator
-            string start = "";
-            int maxsqLength = 1;
             for (int i = 0; i < arr.Length; i++)
             {
                 start = arr[i]; //first letter of the sequence
                 int sqLength = 1;
+
                 //second iterator
                 for (int j = i+1; j < arr.Length; j++)
                 {
@@ -189,20 +195,22 @@ namespace Homework_ShiqiHu_JulyBatch
                         break;
                     }
                 }
+
                 //if the subsequence has longer sequence than longest sequence so far
                 //then record subsequence by casting stringbuilder to string
                 //then clear stringbuilder
                 if (sqLength > maxsqLength)
                 {
+                    maxStart = start;
                     maxsqLength = sqLength;
                 }
             }
 
             //output sequence
-            Console.Write(start);
+            Console.Write(maxStart);
             for (int i = 0; i < maxsqLength-1; i++)
             {
-                Console.WriteLine(" {0}",start);
+                Console.Write(" {0}",maxStart);
             }
             Console.WriteLine();
         }
@@ -392,10 +400,10 @@ namespace Homework_ShiqiHu_JulyBatch
 
             //rotateSum();
 
-            //longestSequence("2 1 1 2 3 3 2 2 2 1");
-            //longestSequence("1 1 1 2 3 1 3 3");
-            //longestSequence("4 4 4 4");
-            //longestSequence("0 1 1 5 2 2 6 3 3");
+            longestSequence("2 1 1 2 3 3 2 2 2 1");
+            longestSequence("1 1 1 2 3 1 3 3");
+            longestSequence("4 4 4 4");
+            longestSequence("0 1 1 5 2 2 6 3 3");
 
             //mostFrequentNum("4 1 1 4 2 3 4 4 1 2 4 9 3");
             //mostFrequentNum("7 7 7 0 2 2 2 0 10 10 10");
