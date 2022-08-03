@@ -301,13 +301,81 @@ namespace Homework_ShiqiHu_JulyBatch
         public static void reverseSentence(string sen)
         {
             //string[] words = sen.Split(new char[] {'.', ',', ':', ';', '=', '(', ')', '&', '[', ']', '"', ''', '\\', '/','!','?',' '});
-            string[] words = Regex.Split(sen, "[.,:;=()&\\/!?\\s\\[\\]\"\']");
-            
-            foreach (string word in words)
+            //string[] words = Regex.Split(sen, @"(?<=[.,;:=()&'[\]""\\/!? ])");
+
+            //foreach (string word in words)
+            //{
+            //    Console.WriteLine(word);
+            //}
+            //Match m = Regex.Match(sen, @"(?<=[.,;:=()&'[\]""\\/!? ])");
+
+            //C# is not C++, and PHP is not Delphi!
+
+
+            //int sp_index = 0; //next index of whitespace
+            //int pc_index = 0; //next index of punctuation
+            //int start_index = 0;
+
+            //sp_index = sen.Substring(start_index).IndexOf(' ');
+            //pc_index = findIndex(sen.Substring(start_index));
+
+            //int result = sp_index.CompareTo(pc_index); //negative means whitespace precede punctuation, positive is vice versa
+            ////assumes the first character is not space or punctuation
+            //if (result < 0)
+            //{
+
+            //}
+            //else
+            //{
+
+            //}
+            List<string> words = new List<string>();
+            List<KeyValuePair <string,int>> punct_loc = new List<KeyValuePair<string, int>>();
+            string[] arr = sen.Split(' ');
+
+            int i = 0;
+            foreach (string s in arr)
             {
-                Console.WriteLine(word);
+                //if no specified puntuations exist in the word
+                int index = findIndex(s);
+                if(index == 0)
+                {
+                    words.Insert(0, s); //always insert at the very front to make sure reverse order
+                }
+                else //(index > 0) if one of those punctuations exists
+                {
+                    int substr_len = index - 1;
+                    string tmp = s.Substring(index-1);
+                    punct_loc.Add(new KeyValuePair<string, int>(tmp, i + 1 + punct_loc.Count));
+                    words.Insert(0, s.Substring(0, substr_len));
+                }
+                i++;
+            }
+            //put punctuation back in
+            foreach (KeyValuePair<string,int> kp in punct_loc)
+            {
+                words.Insert(kp.Value, kp.Key);
+            }
+            string[] res = words.ToArray();
+
+            //output
+            Console.Write(res[0]);
+            for (int j = 1; j < res.Length; j++)
+            {
+                if (Regex.Match(res[j], @"^[.,;:=()&'[\]""\\/!? ]+$").Success) //if contain only punctuation
+                {
+                    Console.Write(res[j]);
+                }
+                else
+                {
+                    Console.Write(" {0}", res[j]);
+                }
             }
 
+        }
+        public static int findIndex(string sen)
+        {
+            return Regex.Match(sen, @"(?<=[.,;:=()&'[\]""\\/!? ])").Index;
         }
 
         //3
@@ -400,10 +468,10 @@ namespace Homework_ShiqiHu_JulyBatch
 
             //rotateSum();
 
-            longestSequence("2 1 1 2 3 3 2 2 2 1");
-            longestSequence("1 1 1 2 3 1 3 3");
-            longestSequence("4 4 4 4");
-            longestSequence("0 1 1 5 2 2 6 3 3");
+            //longestSequence("2 1 1 2 3 3 2 2 2 1");
+            //longestSequence("1 1 1 2 3 1 3 3");
+            //longestSequence("4 4 4 4");
+            //longestSequence("0 1 1 5 2 2 6 3 3");
 
             //mostFrequentNum("4 1 1 4 2 3 4 4 1 2 4 9 3");
             //mostFrequentNum("7 7 7 0 2 2 2 0 10 10 10");
@@ -412,12 +480,16 @@ namespace Homework_ShiqiHu_JulyBatch
             //reverseStr(false);
 
             //reverseSentence("C# is not C++, and PHP is not Delphi!");
+
             //palindrome("Hi,exe? ABBA! Hog fully a string: ExE. Bob");
 
             //urlParser("https://www.apple.com/iphone");
             //urlParser("ftp://www.example.com/employee");
             //urlParser("https://google.com");
             //urlParser("www.apple.com");
+
+            
+            
         }
     }
 }
