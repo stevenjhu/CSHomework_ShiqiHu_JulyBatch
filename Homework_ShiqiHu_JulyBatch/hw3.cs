@@ -158,73 +158,73 @@ namespace Homework_ShiqiHu_JulyBatch
 
               
 
-        public static void Main(string[] args)
-        {
-            //Work with methods
-            //1
-            //int[] numbers = GenerateNumbers(5);
-            //Reverse(numbers);
-            //PrintNumbers(numbers);
+        //public static void Main(string[] args)
+        //{
+        //    //Work with methods
+        //    //1
+        //    //int[] numbers = GenerateNumbers(5);
+        //    //Reverse(numbers);
+        //    //PrintNumbers(numbers);
 
-            //2
-            //for(int i = 1; i <= 10; i++)
-            //{
-            //    Console.Write("{0} ",Fibonacci(i));                
-            //}
+        //    //2
+        //    //for(int i = 1; i <= 10; i++)
+        //    //{
+        //    //    Console.Write("{0} ",Fibonacci(i));                
+        //    //}
 
-            //Designing and Building Classes using object-oriented principles
-            //7
-            //Create a few balls
-            Ball b1 = new Ball(1,new Color(1,4,2,1));
-            Ball b2 = new Ball(2, new Color(123, 23, 12, 141));
-            Ball b3 = new Ball(3, new Color(12, 4, 52, 61));
-            //Throw them around
-            Random random = new Random();
-            int repeat = random.Next(10);
-            for(int i = 0; i < repeat; i++)
-            {
-                int choose = random.Next(3);
-                switch (choose)
-                {
-                    case 0:
-                        b1.Throw();
-                        break;
-                    case 1:
-                        b2.Throw();
-                        break;
-                    case 2:
-                        b3.Throw();
-                        break;
-                }
-            }
-            //Print number of throws
-            Console.WriteLine("Ball 1 has been thrown {0} times.", b1.GetNumOfThrows());
-            Console.WriteLine("Ball 2 has been thrown {0} times.", b2.GetNumOfThrows());
-            Console.WriteLine("Ball 3 has been thrown {0} times.", b3.GetNumOfThrows());
-            //Pop a few
-            b2.Pop(2);
-            //Throw them again
-            for (int i = 0; i < repeat; i++)
-            {
-                int choose = random.Next(3);
-                switch (choose)
-                {
-                    case 0:
-                        b1.Throw();
-                        break;
-                    case 1:
-                        b2.Throw();
-                        break;
-                    case 2:
-                        b3.Throw();
-                        break;
-                }
-            }
-            //Print number of throws
-            Console.WriteLine("Ball 1 has been thrown {0} times.", b1.GetNumOfThrows());
-            Console.WriteLine("Ball 2 has been thrown {0} times.", b2.GetNumOfThrows());
-            Console.WriteLine("Ball 3 has been thrown {0} times.", b3.GetNumOfThrows());
-        }
+        //    //Designing and Building Classes using object-oriented principles
+        //    //7
+        //    //Create a few balls
+        //    Ball b1 = new Ball(1,new Color(1,4,2,1));
+        //    Ball b2 = new Ball(2, new Color(123, 23, 12, 141));
+        //    Ball b3 = new Ball(3, new Color(12, 4, 52, 61));
+        //    //Throw them around
+        //    Random random = new Random();
+        //    int repeat = random.Next(10);
+        //    for(int i = 0; i < repeat; i++)
+        //    {
+        //        int choose = random.Next(3);
+        //        switch (choose)
+        //        {
+        //            case 0:
+        //                b1.Throw();
+        //                break;
+        //            case 1:
+        //                b2.Throw();
+        //                break;
+        //            case 2:
+        //                b3.Throw();
+        //                break;
+        //        }
+        //    }
+        //    //Print number of throws
+        //    Console.WriteLine("Ball 1 has been thrown {0} times.", b1.GetNumOfThrows());
+        //    Console.WriteLine("Ball 2 has been thrown {0} times.", b2.GetNumOfThrows());
+        //    Console.WriteLine("Ball 3 has been thrown {0} times.", b3.GetNumOfThrows());
+        //    //Pop a few
+        //    b2.Pop(2);
+        //    //Throw them again
+        //    for (int i = 0; i < repeat; i++)
+        //    {
+        //        int choose = random.Next(3);
+        //        switch (choose)
+        //        {
+        //            case 0:
+        //                b1.Throw();
+        //                break;
+        //            case 1:
+        //                b2.Throw();
+        //                break;
+        //            case 2:
+        //                b3.Throw();
+        //                break;
+        //        }
+        //    }
+        //    //Print number of throws
+        //    Console.WriteLine("Ball 1 has been thrown {0} times.", b1.GetNumOfThrows());
+        //    Console.WriteLine("Ball 2 has been thrown {0} times.", b2.GetNumOfThrows());
+        //    Console.WriteLine("Ball 3 has been thrown {0} times.", b3.GetNumOfThrows());
+        //}
     }
 
     //------------------------------------------------------
