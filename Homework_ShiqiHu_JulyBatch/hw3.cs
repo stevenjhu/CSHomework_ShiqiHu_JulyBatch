@@ -173,6 +173,57 @@ namespace Homework_ShiqiHu_JulyBatch
             //}
 
             //Designing and Building Classes using object-oriented principles
+            //7
+            //Create a few balls
+            Ball b1 = new Ball(1,new Color(1,4,2,1));
+            Ball b2 = new Ball(2, new Color(123, 23, 12, 141));
+            Ball b3 = new Ball(3, new Color(12, 4, 52, 61));
+            //Throw them around
+            Random random = new Random();
+            int repeat = random.Next(10);
+            for(int i = 0; i < repeat; i++)
+            {
+                int choose = random.Next(3);
+                switch (choose)
+                {
+                    case 0:
+                        b1.Throw();
+                        break;
+                    case 1:
+                        b2.Throw();
+                        break;
+                    case 2:
+                        b3.Throw();
+                        break;
+                }
+            }
+            //Print number of throws
+            Console.WriteLine("Ball 1 has been thrown {0} times.", b1.GetNumOfThrows());
+            Console.WriteLine("Ball 2 has been thrown {0} times.", b2.GetNumOfThrows());
+            Console.WriteLine("Ball 3 has been thrown {0} times.", b3.GetNumOfThrows());
+            //Pop a few
+            b2.Pop(2);
+            //Throw them again
+            for (int i = 0; i < repeat; i++)
+            {
+                int choose = random.Next(3);
+                switch (choose)
+                {
+                    case 0:
+                        b1.Throw();
+                        break;
+                    case 1:
+                        b2.Throw();
+                        break;
+                    case 2:
+                        b3.Throw();
+                        break;
+                }
+            }
+            //Print number of throws
+            Console.WriteLine("Ball 1 has been thrown {0} times.", b1.GetNumOfThrows());
+            Console.WriteLine("Ball 2 has been thrown {0} times.", b2.GetNumOfThrows());
+            Console.WriteLine("Ball 3 has been thrown {0} times.", b3.GetNumOfThrows());
         }
     }
 
@@ -571,5 +622,109 @@ namespace Homework_ShiqiHu_JulyBatch
         void SetName(string firstName, string lastName);
     }
 
+    //7
+    public class Color
+    {
+        private byte red, green, blue, alpha;
+
+        public Color(byte red, byte green, byte blue, byte alpha=255)
+        {
+            this.red = red;
+            this.green = green;
+            this.blue = blue;
+            this.alpha = alpha;
+        }
+        public void SetRed(byte red)
+        {
+            this.red = red;
+        }
+        public void SetGreen(byte green)
+        {
+            this.green = green;
+        }
+        public void SetBlue(byte blue)
+        {
+            this.blue = blue;
+        }
+        public void SetAlpha(byte alpha)
+        {
+            this.alpha = alpha;
+        }
+        public byte GetRed()
+        {
+            return red;
+        }
+        public byte GetGreen()
+        {
+            return green;
+        }
+        public byte GetBlue()
+        {
+            return blue;
+        }
+        public byte GetAlpha()
+        {
+            return alpha;
+        }
+        public double grayscale()
+        {
+            double r = (red + green + blue) / 3;
+            return r;
+        }
+    }
+    public class Ball
+    {
+        private int size;
+        private Color color;
+        private int numOfThrows;
+
+        public Ball(int size, Color color)
+        {
+            this.size = size;
+            this.color = color;
+            numOfThrows = 0;
+        }
+
+        public void Pop(int id)
+        {
+            this.size = 0;
+            Console.WriteLine("Ball {0} popped.",id);
+        }
+        public void Throw()
+        {
+            if(size != 0)
+            {
+                numOfThrows++;
+            }
+        }
+
+        //getters and setters 
+        public int GetSize() {return size;}
+        public Color GetColor() {return color;}
+        public int GetNumOfThrows() {return numOfThrows;}
+        public void SetNumOfThrows(int numOfThrows) 
+        {
+            if (numOfThrows < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else
+            {
+                this.numOfThrows = numOfThrows;
+            }
+        }
+        public void SetColor(Color color) { this.color = color; }
+        public void SetSize(int size) 
+        {
+            if (size < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else
+            {
+                this.size = size;
+            }
+        } 
+    }
 
 }
