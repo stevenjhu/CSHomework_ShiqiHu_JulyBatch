@@ -456,8 +456,8 @@ namespace Homework_ShiqiHu_JulyBatch
             Console.WriteLine();
         }
 
-        public static void Main(string[] args)
-        {
+        //public static void Main(string[] args)
+        //{
             //copyArr();
             //toDoList();
 
@@ -490,6 +490,6 @@ namespace Homework_ShiqiHu_JulyBatch
 
             
             
-        }
+        //}
     }
 }
