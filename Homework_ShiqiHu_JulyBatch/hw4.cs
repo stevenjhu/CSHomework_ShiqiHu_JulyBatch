@@ -16,7 +16,7 @@ namespace Homework_ShiqiHu_JulyBatch
         //List<string> list = new List<string>();
         //3. How many generic type parameters does the Dictionary class have?
         //Two
-        //4. True/False. F
+        //4. True/False. T
         //When a generic class has multiple type parameters, they must all match.
         //5. What method is used to add items to a List object?
         //List.Add(T)
